@@ -1,29 +1,68 @@
 ##Question 1
-class Patient:
-    test_name = ""
-    test_result = False
 
-    def __init__(self, name, symptoms):
+# commenting out the earlier version 
+
+#class Patient:
+#   test_name = ""
+#    test_result = False
+#
+#    def __init__(self, name: str, symptoms: list):
+#        self.name = name
+#        self.symptoms = symptoms
+#
+#    def add_test(self, name: str, result: bool):
+#        Patient.test_name = name
+#        Patient.test_result = result
+#
+#    def has_covid(self):
+#        if Patient.test_name == "covid":
+#            if Patient.test_result:
+#                return 0.99
+#            else:
+#                return 0.01
+#        else:
+#            prob = 0.05
+#            for symptom in self.symptoms:
+#                print(symptom)
+#                if symptom in ['fever', 'cough', 'anosmia']:
+#                    prob = prob + 0.1
+#            return prob
+
+# including a new  version
+
+class Patient:
+
+    def __init__(self, name: str, symptoms: list):
         self.name = name
         self.symptoms = symptoms
 
-    def add_test(self, name, result):
-        Patient.test_name = name
-        Patient.test_result = result
+
+    def add_test(self, name: str, results: bool):
+        self.test_name = name
+        self.test_results = results
 
     def has_covid(self):
-        if Patient.test_name == "covid":
-            if Patient.test_result:
-                return 0.99
-            else:
-                return 0.01
+        if hasattr(self, 'test_name'):
+            if self.test_name == 'covid':
+                if self.test_results == True:
+                    return 0.99
+                else:
+                    return 0.01
+
         else:
             prob = 0.05
-            for symptom in self.symptoms:
-                print(symptom)
-                if symptom in ['fever', 'cough', 'anosmia']:
-                    prob = prob + 0.1
-            return prob
+            for s in list(set(self.symptoms)):
+                if s in ['fever', 'cough', 'anosmia']:
+                    prob += 0.1
+            return round(prob, 2)
+
+
+# p1 = Patient('Ken', ['fever', 'anosmia', 'headache', 'fever'])
+# p2 = Patient('Lisa', ['sore throat', ])
+# p1.add_test('covid', True)
+# # p1.add_test('covid', False)
+# print(p1.has_covid())
+# print(p2.has_covid())
 
 ##Question 2
 import random
